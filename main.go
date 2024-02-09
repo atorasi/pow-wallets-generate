@@ -4,16 +4,17 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"unicode"
 
 	sol "github.com/gagliardetto/solana-go"
 )
 
 func main() {
-	for index := 0; index >= 0; index++ {
+	for index := 0; ; index++ {
 		x := sol.NewWallet()
 		fmt.Printf("%v Address: %v | %v Private: %v | HUESOSI PLEASE GIVE ME SOL\n", index, x.PublicKey(), index, x.PrivateKey)
 
-		if x.PublicKey().String()[:3] == "pow" {
+		if x.PublicKey().String()[:3] == "pow" && unicode.IsDigit(rune(x.PublicKey().String()[3])) {
 			fileWrite(x.PublicKey().String()[:10], []byte(x.PrivateKey))
 		}
 	}
